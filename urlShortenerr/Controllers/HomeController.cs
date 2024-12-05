@@ -2,8 +2,8 @@ using Azure.Core;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using urlShortener.Data;
+using urlShortener.Models;
 using urlShortenerr.Controllers;
-using urlShortenerr.Models;
 
 public class HomeController : Controller
 {

@@ -3,6 +3,7 @@ using urlShortener.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using urlShortener.Models;
 
 namespace urlShortenerr.Controllers
 {

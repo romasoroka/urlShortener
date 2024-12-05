@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using urlShortener.Models;
 
 namespace urlShortener.Data
 {
