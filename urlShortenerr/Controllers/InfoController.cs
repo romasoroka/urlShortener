@@ -12,7 +12,6 @@ namespace urlShortenerr.Controllers
             _dbContext = dbContext;
         }
 
-        // GET: /Info/InfoPage/5
         public IActionResult InfoPage(int id)
         {
             var url = _dbContext.UrlRecords.FirstOrDefault(u => u.Id == id);

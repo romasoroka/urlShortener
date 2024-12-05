@@ -48,6 +48,9 @@
                         <a asp-action="Delete" asp-route-id="@url.Id" class="btn btn-sm btn-danger">Delete</a>
                     </td>
                 }
+                else {
+                    <td></td>
+                }
             </tr>
         }
     </tbody>
@@ -55,5 +58,8 @@
 
 @if (ViewBag.IsAuthenticated != null && (bool)ViewBag.IsAuthenticated)
 {
-    <a asp-action="Create" class="btn btn-primary">Add New URL</a>
+    <div class="d-flex justify-content-end">
+        <a asp-action="Create" class="btn btn-primary">Add New URL</a>
+    </div>
 }
+

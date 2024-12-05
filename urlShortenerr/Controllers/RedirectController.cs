@@ -13,11 +13,9 @@ namespace urlShortener.Controllers
             _context = context;
         }
 
-        // GET: /{shortUrl}
         [Route("{shortUrl}")]
         public IActionResult RedirectToOriginalUrl(string shortUrl)
         {
-            // Знайти запис з коротким URL
             var urlRecord = _context.UrlRecords.FirstOrDefault(u => u.ShortUrl == shortUrl);
 
             if (urlRecord == null)
@@ -25,7 +23,6 @@ namespace urlShortener.Controllers
                 return NotFound("The short URL does not exist.");
             }
 
-            // Перенаправлення на оригінальний URL
             return Redirect(urlRecord.OriginalUrl);
         }
     }

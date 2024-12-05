@@ -15,40 +15,29 @@ public class AboutViewController : Controller
     public IActionResult About()
     {
         var currentUserLogin = Request.Cookies["UserLogin"];
-
-        // Перевірка на наявність користувача в базі
         var currentUser = _dbContext.ApplicationUsers.FirstOrDefault(u => u.Login == currentUserLogin);
 
         if (currentUser != null)
         {
-            if (currentUser.Role == "admin")
+            if (currentUser.Role == "admin") //if role is admin, view flag is true, the text can be changed
             {
                 ViewBag.CanEdit = true;  
             }
         }
-
-        // Повертаємо опис алгоритму для відображення
         return View("~/Views/AboutView/About.cshtml", _algorithmDescription);
     }
 
 
 
-    // Дія для редагування опису алгоритму
     [HttpPost]
-    public IActionResult EditDescription(string algorithmDescription)
+    public IActionResult EditDescription(string algorithmDescription) 
     {
-        // Перевірка на порожній опис
         if (string.IsNullOrEmpty(algorithmDescription))
         {
             ModelState.AddModelError("", "Description cannot be empty.");
-            return View("~/Views/AboutView/About.cshtml", _algorithmDescription); // Повертаємо користувача на сторінку About з помилкою
+            return View("~/Views/AboutView/About.cshtml", _algorithmDescription); 
         }
-
-        // Оновлення опису
         _algorithmDescription = algorithmDescription;
-
-
-        // Повертаємо на сторінку "About" з оновленим описом
         return RedirectToAction("About");
     }
 

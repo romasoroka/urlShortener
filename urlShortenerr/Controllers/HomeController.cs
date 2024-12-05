@@ -18,7 +18,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        var currentUserLogin = Request.Cookies["UserLogin"];
+        var currentUserLogin = Request.Cookies["UserLogin"]; //check roots for user
         int? currentUserId = null;
         bool isAdmin = false;
 
@@ -32,7 +32,7 @@ public class HomeController : Controller
 
             if (currentUser != null)
             {
-                isAdmin = currentUser.Login == "admin";  
+                isAdmin = currentUser.Role == "admin";  //if user role is admin, you have more permissions
             }
         }
         else
@@ -59,16 +59,13 @@ public class HomeController : Controller
         return View();
     }
 
-    // POST: UrlShortener/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
     public IActionResult Create(UrlRecord model)
     {
-        var currentUserLogin = Request.Cookies["UserLogin"];
         model.CreatedBy = Request.Cookies["UserLogin"];
-        ViewBag.ErrorMessage = "model" + model.CreatedBy;
 
-        if (model.OriginalUrl != null && model.ShortUrl != null && currentUserLogin != null)
+        if (model.OriginalUrl != null && model.ShortUrl != null && model.CreatedBy != null)
         {
             if(!_dbContext.UrlRecords.Any(u => u.OriginalUrl == model.OriginalUrl || u.ShortUrl == model.ShortUrl)){
                 _dbContext.Add(model);
@@ -103,10 +100,9 @@ public class HomeController : Controller
         return View(viewModel); // Return the edit view with the URL data
     }
 
-    // POST: /Home/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Edit(UrlViewModel model)
+    public IActionResult Edit(UrlViewModel model) //function is called after pressing Submit button 
     {
         if (model.OriginalUrl != null && model.ShortUrl != null)
         {           
@@ -116,7 +112,7 @@ public class HomeController : Controller
                 return NotFound(); 
             }
 
-            if (url.OriginalUrl != model.OriginalUrl || url.ShortUrl != model.ShortUrl)
+            if (url.OriginalUrl != model.OriginalUrl || url.ShortUrl != model.ShortUrl) //check if url is already exsist in db
             {
                 url.OriginalUrl = model.OriginalUrl;
                 url.ShortUrl = model.ShortUrl;
@@ -133,7 +129,6 @@ public class HomeController : Controller
         return View(model);
     }
 
-    // GET: /Home/Delete/5
     public IActionResult Delete(int id)
     {
         var url = _dbContext.UrlRecords.FirstOrDefault(u => u.Id == id);
@@ -146,7 +141,6 @@ public class HomeController : Controller
         return View(url); // Повертаємо вигляд для підтвердження видалення
     }
     
-    // POST: /Home/Delete/5
     [HttpPost]
     [ActionName("Delete")]
     [ValidateAntiForgeryToken]
@@ -156,14 +150,13 @@ public class HomeController : Controller
 
         if (url == null)
         {
-            return NotFound(); // Якщо URL не знайдено
+            return NotFound(); //if id was not found, 404 page
         }
 
-        // Видаляємо URL з бази даних
         _dbContext.UrlRecords.Remove(url);
         _dbContext.SaveChanges();
 
-        return RedirectToAction("Index"); // Повертаємося на головну сторінку
+        return RedirectToAction("Index"); 
     }
 
 

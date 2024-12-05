@@ -2,9 +2,9 @@
 {
     public class ApplicationUser
     {
-        public int Id { get; set; } // ID користувача
-        public string Login { get; set; } // Логін користувача
-        public string Password { get; set; } // Пароль користувача
-        public string Role { get; set; } // Роль користувача
+        public int Id { get; set; } 
+        public string Login { get; set; }
+        public string Password { get; set; } 
+        public string Role { get; set; } 
     }
 }
