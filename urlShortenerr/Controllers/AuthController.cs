@@ -59,19 +59,21 @@ namespace urlShortenerr.Controllers
         [HttpPost]
         public IActionResult Register(ApplicationUser model)
         {
-            //check if user is not already registrated
+            // Check if the user is already registered
             if (_context.ApplicationUsers.Any(u => u.Login == model.Login))
             {
-                ViewBag.ErrorMessage = "User's already exist!";
+                ViewBag.ErrorMessage = "User already exists!";
                 return View(model);
             }
-            model.Role = "user"; // in this version, you can only registrate common users, not admins
+
+            // Assign the selected role from the form
+            if (model.Role == null) model.Role = "user"; // Default to "user" if no role is selected
 
             _context.ApplicationUsers.Add(model);
             _context.SaveChanges();
 
             return RedirectToAction("Login", "Auth");
-
         }
+
     }
 }
