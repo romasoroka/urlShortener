@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "About - Url Shortener Algorithm";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>Welcome to the Url Shortener service. Below is the description of the algorithm used to shorten URLs:</p>
+
+<p>
+    @Model
+</p>
+
+
+
+@if (ViewBag.CanEdit != null && (bool)ViewBag.CanEdit)
+{
+    <h3>Edit the Algorithm Description</h3>
+
+    <form asp-action="EditDescription" method="post">
+        <div class="form-group">
+            <label for="AlgorithmDescription">Algorithm Description</label>
+            <textarea id="AlgorithmDescription" name="algorithmDescription" class="form-control" rows="5">
+                @Model
+                </textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+}

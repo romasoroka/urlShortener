@@ -1,0 +1,19 @@
+﻿@using urlShortenerr.Controllers
+@model UrlViewModel
+
+<h1>Link Details</h1>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Shortened URL</h5>
+        <p class="card-text"><a href="@Model.ShortUrl" target="_blank">@Model.ShortUrl</a></p>
+
+        <h5 class="card-title">Original URL</h5>
+        <p class="card-text"><a href="@Model.OriginalUrl" target="_blank">@Model.OriginalUrl</a></p>
+
+        <h5 class="card-title">Created By</h5>
+        <p class="card-text">@Model.CreatedBy</p>
+    </div>
+</div>
+
+<a class="btn btn-primary mt-3" href="@Url.Action("Index", "Home")">Back to List</a>

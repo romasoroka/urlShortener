@@ -1,0 +1,13 @@
+﻿@model UrlRecord
+
+<h1>Delete URL</h1>
+
+<p>Are you sure you want to delete the following URL?</p>
+
+<p><strong>Original URL:</strong> @Model.OriginalUrl</p>
+<p><strong>Shortened URL:</strong> <a href="@Model.ShortUrl" target="_blank">@Model.ShortUrl</a></p>
+
+<form method="post">
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">Cancel</a>
+</form>

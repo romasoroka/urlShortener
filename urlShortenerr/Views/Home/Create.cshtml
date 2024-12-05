@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Create Short URL";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.ErrorMessage
+    </div>
+}
+
+<form method="post">
+    <div>
+        <label for="originalUrl">Original URL</label>
+        <input type="text" id="originalUrl" class="form-control" name="originalUrl" required />
+        <label for="shortUrl">Short URL</label>
+        <input type="text" id="shortUrl" class="form-control" name="shortUrl" required />
+    </div>
+    <button type="submit" class="btn btn-sm btn-primary mt-2">Create Short URL</button>
+</form>
